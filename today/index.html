@@ -18,6 +18,11 @@
   .arrow{color:#1f5c99;margin:0 4px}
   .date{font-size:14px;color:#374151;margin-top:6px}
   .meta{font-size:13px;color:#6b7280;margin-top:4px}
+  /* 층수 — 지역명 옆에 붙되 지역명보다 약하게 */
+  .floor{font-weight:600;color:#4b5563;font-size:14px;margin-left:3px}
+  /* 운반 방식 — 사다리차가 필요한지가 견적가를 가르므로 따로 한 줄 준다 */
+  .carry{font-size:13px;color:#374151;margin-top:5px}
+  .carry b{font-weight:600;color:#1f2937}
   .fee{display:inline-flex;align-items:center;gap:5px;margin-top:9px;
     font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:20px}
   .fee-free{background:#e7f6ec;color:#12703a}
@@ -76,6 +81,12 @@
     return '<div class="fee fee-paid">견적 참여비 ' + n.toLocaleString('ko-KR') + '원</div>';
   }
 
+  // 층수 표기. GAS 가 "3층" / "202호" 같은 완성형 문자열로 내려준다.
+  function floorTag(v){
+    var t = (v == null ? '' : String(v)).trim();
+    return t ? ' <span class="floor">' + esc(t) + '</span>' : '';
+  }
+
   function renderList(orders){
     var box = document.getElementById('list');
     if(!orders || orders.length === 0){
@@ -85,10 +96,23 @@
     box.innerHTML = orders.map(function(r){
       var pyeong = (r.pyeong && r.pyeong !== 'undefined' && r.pyeong !== '') ? (esc(r.pyeong) + '평') : '';
       var meta = [pyeong, esc(r.how), esc(r.type)].filter(function(x){return x;}).join(' · ');
+
+      // 층수는 지역명 뒤에 붙인다. 값이 없으면 아무것도 넣지 않는다 —
+      // "-" 를 넣으면 1층이라는 뜻으로 오해할 수 있다.
+      var fromTxt = esc(r.from) + floorTag(r.fromFloor);
+      var toTxt   = esc(r.to)   + floorTag(r.toFloor);
+
+      // 운반 방식은 한쪽만 있어도 보여준다. 사다리차 여부가 견적가를 가른다.
+      var carry = (r.fromCarry || r.toCarry)
+        ? '<div class="carry">운반 <b>' + (esc(r.fromCarry) || '미기재') +
+          '</b> <span class="arrow">→</span> <b>' + (esc(r.toCarry) || '미기재') + '</b></div>'
+        : '';
+
       return '<div class="card">' +
-        '<div class="route">' + esc(r.from) + ' <span class="arrow">→</span> ' + esc(r.to) + '</div>' +
+        '<div class="route">' + fromTxt + ' <span class="arrow">→</span> ' + toTxt + '</div>' +
         '<div class="date">' + esc(r.date) + '</div>' +
         (meta ? '<div class="meta">' + meta + '</div>' : '') +
+        carry +
         feeBadge(r.fee) +
         '<a class="btn" href="' + r.link + '" target="_blank" rel="noopener">견적 참여하기</a>' +
       '</div>';
