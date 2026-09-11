@@ -23,6 +23,12 @@
   /* 운반 방식 — 사다리차가 필요한지가 견적가를 가르므로 따로 한 줄 준다 */
   .carry{font-size:13px;color:#374151;margin-top:5px}
   .carry b{font-weight:600;color:#1f2937}
+  /* 전부 무료일 때 카드마다 배지를 붙이는 대신 위에 한 번만 알린다 */
+  .allfree{background:#e7f6ec;border:1px solid #bfe3cc;border-radius:10px;
+    padding:11px 14px;margin-bottom:12px;color:#12703a}
+  .allfree strong{display:flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700}
+  .allfree svg{width:14px;height:14px;stroke:currentColor;fill:none;
+    stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
   .fee{display:inline-flex;align-items:center;gap:5px;margin-top:9px;
     font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:20px}
   .fee-free{background:#e7f6ec;color:#12703a}
@@ -51,7 +57,7 @@
 
   var COPY = {
     manual: { title: '참여가 적은 주문',
-              desc: '아직 참여한 업체가 적은 주문이에요.<br>지금 제출하시면 계약 가능성이 높습니다.' },
+              desc: '아직 참여한 업체가 적어 경쟁이 낮은 주문들이에요.<br>마감 잡아두신 날짜가 아니라면 적극 참여 부탁드려요!' },
     today:  { title: '오늘 올라온 주문',
               desc: '오늘 올라온 주문 중 파트너님의 참여를 기다리는 건들이에요.<br>하루를 마무리하며 가볍게 확인해주세요.' }
   };
@@ -87,13 +93,34 @@
     return t ? ' <span class="floor">' + esc(t) + '</span>' : '';
   }
 
+  // 전부 무료인지는 데이터로 판단한다. 하나라도 유료거나 값이 없으면 false —
+  // 배너로 "전부 무료" 라고 잘못 알리는 것보다 카드별 배지로 보여주는 편이 낫다.
+  function allFree(orders){
+    if(!orders || orders.length === 0) return false;
+    for(var i=0;i<orders.length;i++){
+      var f = orders[i].fee;
+      if(f === null || f === undefined || f === '' || Number(f) !== 0) return false;
+    }
+    return true;
+  }
+
+  // 마감·적극참여 안내는 상단 헤더에 한 번만 쓴다. 배너는 참여비만 말한다.
+  function freeBanner(){
+    return '<div class="allfree">' +
+      '<strong><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>' +
+      '이 주문들은 모두 견적 참여비가 없습니다</strong>' +
+      '</div>';
+  }
+
   function renderList(orders){
     var box = document.getElementById('list');
     if(!orders || orders.length === 0){
       box.innerHTML = '<div class="state">현재 참여 가능한 주문이 없어요.<br>새로운 주문이 생기면 다시 안내드릴게요.</div>';
       return;
     }
-    box.innerHTML = orders.map(function(r){
+    // 전부 무료면 배너 하나로 대신하고 카드 배지는 생략한다 (같은 말을 N번 하지 않는다)
+    var free = allFree(orders);
+    box.innerHTML = (free ? freeBanner() : '') + orders.map(function(r){
       var pyeong = (r.pyeong && r.pyeong !== 'undefined' && r.pyeong !== '') ? (esc(r.pyeong) + '평') : '';
       var meta = [pyeong, esc(r.how), esc(r.type)].filter(function(x){return x;}).join(' · ');
 
@@ -113,7 +140,7 @@
         '<div class="date">' + esc(r.date) + '</div>' +
         (meta ? '<div class="meta">' + meta + '</div>' : '') +
         carry +
-        feeBadge(r.fee) +
+        (free ? '' : feeBadge(r.fee)) +
         '<a class="btn" href="' + r.link + '" target="_blank" rel="noopener">견적 참여하기</a>' +
       '</div>';
     }).join('');
