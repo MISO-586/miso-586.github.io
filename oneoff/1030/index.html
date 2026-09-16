@@ -10,7 +10,7 @@
 :root{
   --ink:#16213A; --ink-soft:#5A6478; --line:#E2E6EE;
   --paper:#FFFFFF; --surface:#F4F6FA;
-  --go:#0F7B4F; --alert:#B0521A;
+  --go:#1B64DA; --alert:#B0521A;
 }
 html{-webkit-text-size-adjust:100%}
 body{
@@ -27,7 +27,7 @@ header{padding:32px 0 20px}
 .lede b{color:var(--ink);font-weight:700}
 .fee{
   display:inline-block;margin-top:14px;padding:7px 12px;border-radius:6px;
-  background:#E7F2EC;color:var(--go);font-size:14px;font-weight:700;
+  background:#E8F0FD;color:var(--go);font-size:14px;font-weight:700;
 }
 .card{
   background:var(--paper);border:1px solid var(--line);border-radius:10px;
@@ -42,12 +42,11 @@ header{padding:32px 0 20px}
 .place{font-size:17px;font-weight:700;letter-spacing:-0.4px;word-break:keep-all;line-height:1.3}
 .detail{font-size:13px;color:var(--ink-soft);margin-top:3px}
 .how{
-  flex:0 0 auto;display:flex;align-items:center;gap:4px;
-  padding:5px 8px;border-radius:999px;background:var(--surface);
-  white-space:nowrap;
+  display:inline-block;padding:3px 7px;border-radius:999px;
+  background:var(--surface);color:var(--ink-soft);
+  font-size:12px;font-weight:600;white-space:nowrap;vertical-align:middle;
 }
-.how-t{font-size:12px;font-weight:600;color:var(--ink)}
-.how-a{font-size:12px;color:var(--ink-soft)}
+.arrow{flex:0 0 auto;color:var(--ink-soft);font-size:15px}
 .meta{
   display:flex;flex-wrap:wrap;gap:6px;padding-top:12px;border-top:1px solid var(--line);
 }
@@ -60,7 +59,7 @@ header{padding:32px 0 20px}
   background:var(--go);color:#fff;text-align:center;
   font-size:16px;font-weight:700;text-decoration:none;
 }
-.join:active{background:#0B5E3C}
+.join:active{background:#164FAC}
 .join:focus-visible{outline:3px solid #16213A;outline-offset:2px}
 .id{font-size:12px;color:#97A0B2;margin-top:8px;text-align:right}
 .extra{margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}
@@ -82,16 +81,12 @@ footer b{color:var(--ink)}
       <p class="status urgent">아직 견적이 없는 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">서대문구</p>
+          <p class="place">서대문구 <span class="how">사다리</span></p>
           <p class="detail">3층</p>
         </div>
-        <div class="how">
-          <span class="how-t">사다리</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">사다리</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">영등포구</p>
+          <p class="place">영등포구 <span class="how">사다리</span></p>
           <p class="detail">4층</p>
         </div>
       </div>
@@ -103,16 +98,12 @@ footer b{color:var(--ink)}
       <p class="status urgent">아직 견적이 없는 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">강서구</p>
+          <p class="place">강서구 <span class="how">사다리</span></p>
           <p class="detail">8층</p>
         </div>
-        <div class="how">
-          <span class="how-t">사다리</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">사다리</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">강서구</p>
+          <p class="place">강서구 <span class="how">사다리</span></p>
           <p class="detail">2층</p>
         </div>
       </div>
@@ -124,16 +115,12 @@ footer b{color:var(--ink)}
       <p class="status urgent">아직 견적이 없는 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">인천 남동구</p>
+          <p class="place">인천 남동구 <span class="how">엘베</span></p>
           <p class="detail">2003호</p>
         </div>
-        <div class="how">
-          <span class="how-t">엘베</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">사다리</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">인천 남동구</p>
+          <p class="place">인천 남동구 <span class="how">사다리</span></p>
           <p class="detail">1704호</p>
         </div>
       </div>
@@ -145,16 +132,12 @@ footer b{color:var(--ink)}
       <p class="status urgent">아직 견적이 없는 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">인천 서해구</p>
+          <p class="place">인천 서해구 <span class="how">사다리</span></p>
           <p class="detail">1403호</p>
         </div>
-        <div class="how">
-          <span class="how-t">사다리</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">사다리</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">고양시 일산서구</p>
+          <p class="place">고양시 일산서구 <span class="how">사다리</span></p>
           <p class="detail">1309호</p>
         </div>
       </div>
@@ -166,16 +149,12 @@ footer b{color:var(--ink)}
       <p class="status urgent">아직 견적이 없는 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">구로구</p>
+          <p class="place">구로구 <span class="how">엘베</span></p>
           <p class="detail">6층</p>
         </div>
-        <div class="how">
-          <span class="how-t">엘베</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">계단</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">안양시 동안구</p>
+          <p class="place">안양시 동안구 <span class="how">계단</span></p>
           <p class="detail">1층</p>
         </div>
       </div>
@@ -187,16 +166,12 @@ footer b{color:var(--ink)}
       <p class="status urgent">아직 견적이 없는 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">송파구</p>
+          <p class="place">송파구 <span class="how">사다리</span></p>
           <p class="detail">9층</p>
         </div>
-        <div class="how">
-          <span class="how-t">사다리</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">엘베</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">송파구</p>
+          <p class="place">송파구 <span class="how">엘베</span></p>
           <p class="detail">5층</p>
         </div>
       </div>
@@ -208,16 +183,12 @@ footer b{color:var(--ink)}
       <p class="status urgent">아직 견적이 없는 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">은평구</p>
+          <p class="place">은평구 <span class="how">사다리</span></p>
           <p class="detail">8층</p>
         </div>
-        <div class="how">
-          <span class="how-t">사다리</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">사다리</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">남양주시</p>
+          <p class="place">남양주시 <span class="how">사다리</span></p>
           <p class="detail">6층</p>
         </div>
       </div>
@@ -229,16 +200,12 @@ footer b{color:var(--ink)}
       <p class="status">견적 1건만 들어온 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">영등포구</p>
+          <p class="place">영등포구 <span class="how">엘베</span></p>
           <p class="detail">17층</p>
         </div>
-        <div class="how">
-          <span class="how-t">엘베</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">엘베</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">강동구</p>
+          <p class="place">강동구 <span class="how">엘베</span></p>
           <p class="detail">29층</p>
         </div>
       </div>
@@ -250,16 +217,12 @@ footer b{color:var(--ink)}
       <p class="status">견적 1건만 들어온 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">인천 연수구</p>
+          <p class="place">인천 연수구 <span class="how">엘베</span></p>
           <p class="detail">1601호</p>
         </div>
-        <div class="how">
-          <span class="how-t">엘베</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">엘베</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">인천 미추홀구</p>
+          <p class="place">인천 미추홀구 <span class="how">엘베</span></p>
           <p class="detail">1306호</p>
         </div>
       </div>
@@ -271,16 +234,12 @@ footer b{color:var(--ink)}
       <p class="status">견적 1건만 들어온 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">영등포구</p>
+          <p class="place">영등포구 <span class="how">사다리</span></p>
           <p class="detail">16층</p>
         </div>
-        <div class="how">
-          <span class="how-t">사다리</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">엘베</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">강서구</p>
+          <p class="place">강서구 <span class="how">엘베</span></p>
           <p class="detail">13층</p>
         </div>
       </div>
@@ -292,16 +251,12 @@ footer b{color:var(--ink)}
       <p class="status">견적 1건만 들어온 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">성북구</p>
+          <p class="place">성북구 <span class="how">엘베</span></p>
           <p class="detail">24층</p>
         </div>
-        <div class="how">
-          <span class="how-t">엘베</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">엘베</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">중랑구</p>
+          <p class="place">중랑구 <span class="how">엘베</span></p>
           <p class="detail">4층</p>
         </div>
       </div>
@@ -313,16 +268,12 @@ footer b{color:var(--ink)}
       <p class="status">견적 1건만 들어온 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">구로구</p>
+          <p class="place">구로구 <span class="how">사다리</span></p>
           <p class="detail">303호</p>
         </div>
-        <div class="how">
-          <span class="how-t">사다리</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">엘베</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">시흥시</p>
+          <p class="place">시흥시 <span class="how">엘베</span></p>
           <p class="detail">4302호</p>
         </div>
       </div>
@@ -334,16 +285,12 @@ footer b{color:var(--ink)}
       <p class="status">견적 1건만 들어온 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">성남시 분당구</p>
+          <p class="place">성남시 분당구 <span class="how">사다리</span></p>
           <p class="detail">602호</p>
         </div>
-        <div class="how">
-          <span class="how-t">사다리</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">엘베</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">성남시 분당구</p>
+          <p class="place">성남시 분당구 <span class="how">엘베</span></p>
           <p class="detail">3호</p>
         </div>
       </div>
@@ -355,16 +302,12 @@ footer b{color:var(--ink)}
       <p class="status">견적 1건만 들어온 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">송파구</p>
+          <p class="place">송파구 <span class="how">엘베</span></p>
           <p class="detail">1204호</p>
         </div>
-        <div class="how">
-          <span class="how-t">엘베</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">엘베</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">서초구</p>
+          <p class="place">서초구 <span class="how">엘베</span></p>
           <p class="detail">1404호</p>
         </div>
       </div>
@@ -376,16 +319,12 @@ footer b{color:var(--ink)}
       <p class="status">견적 1건만 들어온 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">인천 미추홀구</p>
+          <p class="place">인천 미추홀구 <span class="how">엘베</span></p>
           <p class="detail">1902호</p>
         </div>
-        <div class="how">
-          <span class="how-t">엘베</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">엘베</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">인천 미추홀구</p>
+          <p class="place">인천 미추홀구 <span class="how">엘베</span></p>
           <p class="detail">12층호</p>
         </div>
       </div>
@@ -397,16 +336,12 @@ footer b{color:var(--ink)}
       <p class="status">견적 1건만 들어온 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">송파구</p>
+          <p class="place">송파구 <span class="how">계단</span></p>
           <p class="detail">301호</p>
         </div>
-        <div class="how">
-          <span class="how-t">계단</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">1층</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">송파구</p>
+          <p class="place">송파구 <span class="how">1층</span></p>
           <p class="detail">202호</p>
         </div>
       </div>
@@ -418,16 +353,12 @@ footer b{color:var(--ink)}
       <p class="status">견적 1건만 들어온 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">강서구</p>
+          <p class="place">강서구 <span class="how">사다리</span></p>
           <p class="detail">3층</p>
         </div>
-        <div class="how">
-          <span class="how-t">사다리</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">엘베</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">인천 서구</p>
+          <p class="place">인천 서구 <span class="how">엘베</span></p>
           <p class="detail">12층</p>
         </div>
       </div>
@@ -439,16 +370,12 @@ footer b{color:var(--ink)}
       <p class="status">2026년 11월 30일 (월) · 견적 1건만 들어온 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">인천 검단구</p>
+          <p class="place">인천 검단구 <span class="how">사다리</span></p>
           <p class="detail">701호</p>
         </div>
-        <div class="how">
-          <span class="how-t">사다리</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">엘베</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">인천 검단구</p>
+          <p class="place">인천 검단구 <span class="how">엘베</span></p>
           <p class="detail">1804호</p>
         </div>
       </div>
@@ -460,16 +387,12 @@ footer b{color:var(--ink)}
       <p class="status">2026년 11월 30일 (월) · 견적 1건만 들어온 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">용산구</p>
+          <p class="place">용산구 <span class="how">엘베</span></p>
           <p class="detail">25층</p>
         </div>
-        <div class="how">
-          <span class="how-t">엘베</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">엘베</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">인천 서구</p>
+          <p class="place">인천 서구 <span class="how">엘베</span></p>
           <p class="detail">16층</p>
         </div>
       </div>
@@ -481,16 +404,12 @@ footer b{color:var(--ink)}
       <p class="status">2027년 1월 18일 (월) · 견적 1건만 들어온 주문</p>
       <div class="route">
         <div class="leg">
-          <p class="place">고양시 덕양구</p>
+          <p class="place">고양시 덕양구 <span class="how">사다리</span></p>
           <p class="detail">2층</p>
         </div>
-        <div class="how">
-          <span class="how-t">사다리</span>
-          <span class="how-a" aria-hidden="true">→</span>
-          <span class="how-t">사다리</span>
-        </div>
+        <div class="arrow" aria-hidden="true">→</div>
         <div class="leg leg-r">
-          <p class="place">고양시 덕양구</p>
+          <p class="place">고양시 덕양구 <span class="how">사다리</span></p>
           <p class="detail">22층</p>
         </div>
       </div>
@@ -501,7 +420,7 @@ footer b{color:var(--ink)}
   <footer>
     <p><b>견적 넣기</b>를 누르면 미소 파트너 앱의 해당 주문으로 바로 이동합니다.
        앱 로그인이 되어 있어야 합니다.</p>
-    <p>09월 16일 10:42 기준 정보입니다. 이미 마감되었거나 다른 파트너가 계약한 주문은 참여가 닫힐 수 있습니다.</p>
+    <p>09월 16일 10:49 기준 정보입니다. 이미 마감되었거나 다른 파트너가 계약한 주문은 참여가 닫힐 수 있습니다.</p>
   </footer>
 </div>
 </body>
