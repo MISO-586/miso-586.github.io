@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>9월 30일 견적 요청 주문 · 미소방문이사</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#16213A; --ink-soft:#5A6478; --line:#E2E6EE;
+  --paper:#FFFFFF; --surface:#F4F6FA;
+  --go:#0F7B4F; --alert:#B0521A;
+}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard",
+    "Noto Sans KR","Malgun Gothic",sans-serif;
+  background:var(--surface); color:var(--ink);
+  line-height:1.5; padding:0 0 48px;
+}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px}
+header{padding:32px 0 20px}
+.date{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.05}
+.weekday{font-size:40px;font-weight:300;color:var(--ink-soft);letter-spacing:-1.5px}
+.lede{margin-top:10px;font-size:15px;color:var(--ink-soft)}
+.lede b{color:var(--ink);font-weight:700}
+.fee{
+  display:inline-block;margin-top:14px;padding:7px 12px;border-radius:6px;
+  background:#E7F2EC;color:var(--go);font-size:14px;font-weight:700;
+}
+.card{
+  background:var(--paper);border:1px solid var(--line);border-radius:10px;
+  padding:16px;margin-bottom:12px;
+}
+.card.urgent{border-left:4px solid var(--alert)}
+.status{font-size:13px;font-weight:700;color:var(--ink-soft);margin-bottom:10px}
+.status.urgent{color:var(--alert)}
+.route{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+.leg{flex:1;min-width:0}
+.place{font-size:18px;font-weight:700;letter-spacing:-0.4px;word-break:keep-all}
+.detail{font-size:13px;color:var(--ink-soft);margin-top:3px}
+.arrow{flex:none;padding-top:4px;color:var(--ink-soft);font-size:16px}
+.meta{
+  display:flex;flex-wrap:wrap;gap:6px;padding-top:12px;border-top:1px solid var(--line);
+}
+.tag{
+  font-size:13px;padding:4px 9px;border-radius:5px;background:var(--surface);color:var(--ink-soft);
+}
+.tag.type{background:#EDF0FF;color:#3B4A9B;font-weight:600}
+.join{
+  display:block;margin-top:14px;padding:14px;border-radius:8px;
+  background:var(--go);color:#fff;text-align:center;
+  font-size:16px;font-weight:700;text-decoration:none;
+}
+.join:active{background:#0B5E3C}
+.join:focus-visible{outline:3px solid #16213A;outline-offset:2px}
+.id{font-size:12px;color:#97A0B2;margin-top:8px;text-align:right}
+footer{margin-top:28px;font-size:13px;color:var(--ink-soft);line-height:1.7}
+footer b{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="date">9월 30일 <span class="weekday">수요일</span></p>
+    <p class="lede">견적이 부족한 이사 <b>12건</b>입니다. 이 중 <b>5건</b>은 아직 견적이 하나도 없습니다.</p>
+    <p class="fee">견적 참여비 없음</p>
+  </header>
+  <main>
+    <article class="card urgent">
+      <p class="status urgent">아직 견적이 없는 주문</p>
+      <div class="route">
+        <div class="leg">
+          <p class="place">고양시 일산동구</p>
+          <p class="detail">2층 · 사다리</p>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="leg">
+          <p class="place">양주시</p>
+          <p class="detail">3층 · 엘리베이터</p>
+        </div>
+      </div>
+      <div class="meta"><span class="tag">20평</span><span class="tag">포장 이사</span><span class="tag type">일반이사</span></div>
+      <a class="join" href="https://miso.app/partner/bookingDetail?serviceCode=moving-concierge-rfq&bookingId=2066015">견적 넣기</a>
+      <p class="id">주문번호 2066015</p>
+    </article>
+    <article class="card urgent">
+      <p class="status urgent">아직 견적이 없는 주문</p>
+      <div class="route">
+        <div class="leg">
+          <p class="place">서초구</p>
+          <p class="detail">3층 · 사다리</p>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="leg">
+          <p class="place">서초구</p>
+          <p class="detail">2층 · 계단</p>
+        </div>
+      </div>
+      <div class="meta"><span class="tag">20평</span><span class="tag">포장 이사</span><span class="tag type">일반이사</span></div>
+      <a class="join" href="https://miso.app/partner/bookingDetail?serviceCode=moving-concierge-rfq&bookingId=2066449">견적 넣기</a>
+      <p class="id">주문번호 2066449</p>
+    </article>
+    <article class="card urgent">
+      <p class="status urgent">아직 견적이 없는 주문</p>
+      <div class="route">
+        <div class="leg">
+          <p class="place">서초구</p>
+          <p class="detail">17층 · 사다리</p>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="leg">
+          <p class="place">서초구</p>
+          <p class="detail">22층 · 엘리베이터</p>
+        </div>
+      </div>
+      <div class="meta"><span class="tag">34평</span><span class="tag">포장 이사</span><span class="tag type">경유이사</span></div>
+      <a class="join" href="https://miso.app/partner/bookingDetail?serviceCode=moving-concierge-rfq&bookingId=2067111">견적 넣기</a>
+      <p class="id">주문번호 2067111</p>
+    </article>
+    <article class="card urgent">
+      <p class="status urgent">아직 견적이 없는 주문</p>
+      <div class="route">
+        <div class="leg">
+          <p class="place">인천 검단구</p>
+          <p class="detail">502호 · 사다리</p>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="leg">
+          <p class="place">은평구</p>
+          <p class="detail">401호 · 사다리</p>
+        </div>
+      </div>
+      <div class="meta"><span class="tag">34평</span><span class="tag">포장 이사</span><span class="tag type">일반이사</span></div>
+      <a class="join" href="https://miso.app/partner/bookingDetail?serviceCode=moving-concierge-rfq&bookingId=2067134">견적 넣기</a>
+      <p class="id">주문번호 2067134</p>
+    </article>
+    <article class="card urgent">
+      <p class="status urgent">아직 견적이 없는 주문</p>
+      <div class="route">
+        <div class="leg">
+          <p class="place">성남시 수정구</p>
+          <p class="detail">2504호 · 엘리베이터</p>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="leg">
+          <p class="place">원주시</p>
+          <p class="detail">1004호 · 사다리</p>
+        </div>
+      </div>
+      <div class="meta"><span class="tag">34평</span><span class="tag">포장 이사</span><span class="tag type">경유이사</span></div>
+      <a class="join" href="https://miso.app/partner/bookingDetail?serviceCode=moving-concierge-rfq&bookingId=2069183">견적 넣기</a>
+      <p class="id">주문번호 2069183</p>
+    </article>
+    <article class="card">
+      <p class="status">견적 1건만 들어온 주문</p>
+      <div class="route">
+        <div class="leg">
+          <p class="place">은평구</p>
+          <p class="detail">1층 · 계단</p>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="leg">
+          <p class="place">은평구</p>
+          <p class="detail">1층 · 계단</p>
+        </div>
+      </div>
+      <div class="meta"><span class="tag">34평</span><span class="tag">포장 이사</span><span class="tag type">일반이사</span></div>
+      <a class="join" href="https://miso.app/partner/bookingDetail?serviceCode=moving-concierge-rfq&bookingId=2061526">견적 넣기</a>
+      <p class="id">주문번호 2061526</p>
+    </article>
+    <article class="card">
+      <p class="status">견적 1건만 들어온 주문</p>
+      <div class="route">
+        <div class="leg">
+          <p class="place">송파구</p>
+          <p class="detail">803호 · 사다리</p>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="leg">
+          <p class="place">강릉시</p>
+          <p class="detail">1301호 · 사다리</p>
+        </div>
+      </div>
+      <div class="meta"><span class="tag">25평</span><span class="tag">포장 이사</span><span class="tag type">장거리이사</span></div>
+      <a class="join" href="https://miso.app/partner/bookingDetail?serviceCode=moving-concierge-rfq&bookingId=2063053">견적 넣기</a>
+      <p class="id">주문번호 2063053</p>
+    </article>
+    <article class="card">
+      <p class="status">견적 1건만 들어온 주문</p>
+      <div class="route">
+        <div class="leg">
+          <p class="place">성남시 중원구</p>
+          <p class="detail">1273호 · 엘리베이터</p>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="leg">
+          <p class="place">성남시 중원구</p>
+          <p class="detail">1168호 · 엘리베이터</p>
+        </div>
+      </div>
+      <div class="meta"><span class="tag">15평</span><span class="tag">반포장 이사</span><span class="tag type">일반이사</span></div>
+      <a class="join" href="https://miso.app/partner/bookingDetail?serviceCode=moving-concierge-rfq&bookingId=2066375">견적 넣기</a>
+      <p class="id">주문번호 2066375</p>
+    </article>
+    <article class="card">
+      <p class="status">견적 1건만 들어온 주문</p>
+      <div class="route">
+        <div class="leg">
+          <p class="place">중랑구</p>
+          <p class="detail">2층 · 계단</p>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="leg">
+          <p class="place">중랑구</p>
+          <p class="detail">101호 · 1층</p>
+        </div>
+      </div>
+      <div class="meta"><span class="tag">15평</span><span class="tag">포장 이사</span><span class="tag type">일반이사</span></div>
+      <a class="join" href="https://miso.app/partner/bookingDetail?serviceCode=moving-concierge-rfq&bookingId=2068510">견적 넣기</a>
+      <p class="id">주문번호 2068510</p>
+    </article>
+    <article class="card">
+      <p class="status">견적 1건만 들어온 주문</p>
+      <div class="route">
+        <div class="leg">
+          <p class="place">강북구</p>
+          <p class="detail">302호 · 엘리베이터</p>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="leg">
+          <p class="place">노원구</p>
+          <p class="detail">708호 · 엘리베이터</p>
+        </div>
+      </div>
+      <div class="meta"><span class="tag">20평</span><span class="tag">일반 이사</span><span class="tag type">일반이사</span></div>
+      <a class="join" href="https://miso.app/partner/bookingDetail?serviceCode=moving-concierge-rfq&bookingId=2068609">견적 넣기</a>
+      <p class="id">주문번호 2068609</p>
+    </article>
+    <article class="card">
+      <p class="status">견적 1건만 들어온 주문</p>
+      <div class="route">
+        <div class="leg">
+          <p class="place">중구</p>
+          <p class="detail">3층 · 엘리베이터</p>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="leg">
+          <p class="place">종로구</p>
+          <p class="detail">15층 · 엘리베이터</p>
+        </div>
+      </div>
+      <div class="meta"><span class="tag">15평</span><span class="tag">포장 이사</span><span class="tag type">일반이사</span></div>
+      <a class="join" href="https://miso.app/partner/bookingDetail?serviceCode=moving-concierge-rfq&bookingId=2069176">견적 넣기</a>
+      <p class="id">주문번호 2069176</p>
+    </article>
+    <article class="card">
+      <p class="status">견적 1건만 들어온 주문</p>
+      <div class="route">
+        <div class="leg">
+          <p class="place">양천구</p>
+          <p class="detail">2층 · 엘리베이터</p>
+        </div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="leg">
+          <p class="place">양천구</p>
+          <p class="detail">6층 · 사다리</p>
+        </div>
+      </div>
+      <div class="meta"><span class="tag">25평</span><span class="tag">포장 이사</span><span class="tag type">일반이사</span></div>
+      <a class="join" href="https://miso.app/partner/bookingDetail?serviceCode=moving-concierge-rfq&bookingId=2069362">견적 넣기</a>
+      <p class="id">주문번호 2069362</p>
+    </article></main>
+  <footer>
+    <p><b>견적 넣기</b>를 누르면 미소 파트너 앱의 해당 주문으로 바로 이동합니다.
+       앱 로그인이 되어 있어야 합니다.</p>
+    <p>09월 16일 10:23 기준 정보입니다. 이미 마감되었거나 다른 파트너가 계약한 주문은 참여가 닫힐 수 있습니다.</p>
+  </footer>
+</div>
+</body>
+</html>
