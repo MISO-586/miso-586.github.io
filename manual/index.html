@@ -40,6 +40,16 @@
   .btn:active{background:#174a7c}
   .state{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:40px 20px;
     text-align:center;color:#6b7280;font-size:14px;line-height:1.6}
+  /* 날짜 탭. 탭이 하나면 렌더하지 않는다 */
+  .tabs{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:none;padding:9px 14px;border:1px solid #e5e7eb;border-radius:8px;
+    background:#fff;color:#6b7280;font-family:inherit;font-size:14px;
+    font-weight:600;white-space:nowrap;cursor:pointer}
+  .tab[aria-selected="true"]{background:#1f5c99;border-color:#1f5c99;color:#fff}
+  .tab .n{margin-left:5px;font-size:12.5px;opacity:.75}
+  .daygrp[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -93,6 +103,31 @@
     return t ? ' <span class="floor">' + esc(t) + '</span>' : '';
   }
 
+  // r.date 형식이 확정되지 않아 흔한 표기를 모두 받는다.
+  // 파싱 실패 시 원문을 그대로 키로 쓰고 정렬만 포기한다.
+  function dateKey(v){
+    var s = String(v == null ? '' : v).trim();
+    var m = s.match(/(?:(\d{4})\D+)?(\d{1,2})\D+(\d{1,2})/);
+    if(!m) return { key:s, label:s, sort:'9999' };
+    var y = m[1] || String(new Date().getFullYear());
+    var mo = ('0'+m[2]).slice(-2), d = ('0'+m[3]).slice(-2);
+    var wd = ['일','월','화','수','목','금','토'][new Date(y+'-'+mo+'-'+d).getDay()];
+    return { key:y+'-'+mo+'-'+d,
+             label:Number(mo)+'/'+Number(d)+(wd?'('+wd+')':''),
+             sort:y+mo+d };
+  }
+
+  function groupByDate(orders){
+    var map = {}, out = [];
+    orders.forEach(function(r){
+      var k = dateKey(r.date);
+      if(!map[k.key]){ map[k.key] = { k:k, items:[] }; out.push(map[k.key]); }
+      map[k.key].items.push(r);
+    });
+    out.sort(function(a,b){ return a.k.sort < b.k.sort ? -1 : 1; });
+    return out;
+  }
+
   // 전부 무료인지는 데이터로 판단한다. 하나라도 유료거나 값이 없으면 false —
   // 배너로 "전부 무료" 라고 잘못 알리는 것보다 카드별 배지로 보여주는 편이 낫다.
   function allFree(orders){
@@ -112,6 +147,31 @@
       '</div>';
   }
 
+  function cardHtml(r, free){
+    var pyeong = (r.pyeong && r.pyeong !== 'undefined' && r.pyeong !== '') ? (esc(r.pyeong) + '평') : '';
+    var meta = [pyeong, esc(r.how), esc(r.type)].filter(function(x){return x;}).join(' · ');
+
+    // 층수는 지역명 뒤에 붙인다. 값이 없으면 아무것도 넣지 않는다 —
+    // "-" 를 넣으면 1층이라는 뜻으로 오해할 수 있다.
+    var fromTxt = esc(r.from) + floorTag(r.fromFloor);
+    var toTxt   = esc(r.to)   + floorTag(r.toFloor);
+
+    // 운반 방식은 한쪽만 있어도 보여준다. 사다리차 여부가 견적가를 가른다.
+    var carry = (r.fromCarry || r.toCarry)
+      ? '<div class="carry">운반 <b>' + (esc(r.fromCarry) || '미기재') +
+        '</b> <span class="arrow">→</span> <b>' + (esc(r.toCarry) || '미기재') + '</b></div>'
+      : '';
+
+    return '<div class="card">' +
+      '<div class="route">' + fromTxt + ' <span class="arrow">→</span> ' + toTxt + '</div>' +
+      '<div class="date">' + esc(r.date) + '</div>' +
+      (meta ? '<div class="meta">' + meta + '</div>' : '') +
+      carry +
+      (free ? '' : feeBadge(r.fee)) +
+      '<a class="btn" href="' + r.link + '" target="_blank" rel="noopener">견적 참여하기</a>' +
+    '</div>';
+  }
+
   function renderList(orders){
     var box = document.getElementById('list');
     if(!orders || orders.length === 0){
@@ -120,30 +180,42 @@
     }
     // 전부 무료면 배너 하나로 대신하고 카드 배지는 생략한다 (같은 말을 N번 하지 않는다)
     var free = allFree(orders);
-    box.innerHTML = (free ? freeBanner() : '') + orders.map(function(r){
-      var pyeong = (r.pyeong && r.pyeong !== 'undefined' && r.pyeong !== '') ? (esc(r.pyeong) + '평') : '';
-      var meta = [pyeong, esc(r.how), esc(r.type)].filter(function(x){return x;}).join(' · ');
+    var groups = groupByDate(orders);
+    var banner = free ? freeBanner() : '';
 
-      // 층수는 지역명 뒤에 붙인다. 값이 없으면 아무것도 넣지 않는다 —
-      // "-" 를 넣으면 1층이라는 뜻으로 오해할 수 있다.
-      var fromTxt = esc(r.from) + floorTag(r.fromFloor);
-      var toTxt   = esc(r.to)   + floorTag(r.toFloor);
+    // 날짜가 하나뿐이면 탭을 만들지 않는다
+    if(groups.length < 2){
+      box.innerHTML = banner + orders.map(function(r){ return cardHtml(r, free); }).join('');
+      return;
+    }
 
-      // 운반 방식은 한쪽만 있어도 보여준다. 사다리차 여부가 견적가를 가른다.
-      var carry = (r.fromCarry || r.toCarry)
-        ? '<div class="carry">운반 <b>' + (esc(r.fromCarry) || '미기재') +
-          '</b> <span class="arrow">→</span> <b>' + (esc(r.toCarry) || '미기재') + '</b></div>'
-        : '';
+    var tabs = '<div class="tabs" role="tablist">' +
+      '<button class="tab" role="tab" aria-selected="true" data-i="-1">전체' +
+      '<span class="n">' + orders.length + '</span></button>' +
+      groups.map(function(g, i){
+        return '<button class="tab" role="tab" aria-selected="false" data-i="' + i + '">' +
+          esc(g.k.label) + '<span class="n">' + g.items.length + '</span></button>';
+      }).join('') + '</div>';
 
-      return '<div class="card">' +
-        '<div class="route">' + fromTxt + ' <span class="arrow">→</span> ' + toTxt + '</div>' +
-        '<div class="date">' + esc(r.date) + '</div>' +
-        (meta ? '<div class="meta">' + meta + '</div>' : '') +
-        carry +
-        (free ? '' : feeBadge(r.fee)) +
-        '<a class="btn" href="' + r.link + '" target="_blank" rel="noopener">견적 참여하기</a>' +
-      '</div>';
+    var panels = groups.map(function(g, i){
+      return '<div class="daygrp" data-g="' + i + '">' +
+        g.items.map(function(r){ return cardHtml(r, free); }).join('') + '</div>';
     }).join('');
+
+    box.innerHTML = tabs + banner + panels;
+
+    var btns = [].slice.call(box.querySelectorAll('.tab'));
+    var grps = [].slice.call(box.querySelectorAll('.daygrp'));
+    btns.forEach(function(b){
+      b.addEventListener('click', function(){
+        var sel = Number(b.getAttribute('data-i'));
+        btns.forEach(function(o){
+          o.setAttribute('aria-selected', o === b ? 'true' : 'false');
+        });
+        grps.forEach(function(g, gi){ g.hidden = (sel !== -1 && sel !== gi); });
+        window.scrollTo(0, 0);
+      });
+    });
   }
 
   function showError(){
