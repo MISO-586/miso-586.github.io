@@ -291,13 +291,79 @@
       'style="color:#1f5c99;font-weight:600">전체 주문 보기</a></div>';
   }
 
-  // JSONP 호출 (CORS 우회)
-  window.__cb = function(res){
-    if(res && res.ok){ renderList(res.orders); }
-    else { renderList([]); }
-  };
+  // ── 데이터 불러오기 ─────────────────────────────────────────
+  // 1순위: 같은 도메인의 정적 JSON (?k= 링크). GAS 가 /d/{type}/ 에 커밋한다.
+  //   orders.json — 이 페이지 종류의 전체 주문
+  //   {k}.json    — 이 파트너에게 숨길 주문 ID  {"x":[...]}
+  //   k 는 pid 를 비밀키로 해시한 값이라 남의 링크를 추측할 수 없다.
+  // 2순위: GAS 웹앱 JSONP. 옛 ?pid= 링크와, 정적 파일을 못 받았을 때만 쓴다.
+  //   JSONP 는 브라우저에 따라(구글 계정 여러 개, 인앱 브라우저, 쿠키 차단) 깨지므로
+  //   정적 JSON 으로 옮긴 것이다.
+  var DATA_BASE = '/d/' + TYPE + '/';
 
-  // pid 추출. URLSearchParams 는 구형 안드로이드 웹뷰에 없어 정규식으로 읽는다.
+  // XHR 을 쓴다 — fetch 가 없는 구형 안드로이드 웹뷰도 받으려는 것이다.
+  // Pages CDN 이 10분 캐시하므로 매번 쿼리를 붙여 새로 받는다.
+  function getJson(url, cb){
+    var x = new XMLHttpRequest(), fired = false;
+    function fin(s, d){ if(fired) return; fired = true; cb(s, d); }
+    x.open('GET', url + '?t=' + Date.now(), true);
+    x.timeout = 12000;
+    x.onload = function(){
+      if(x.status !== 200) return fin(x.status, null);
+      try { fin(200, JSON.parse(x.responseText)); } catch(e){ fin(0, null); }
+    };
+    x.onerror = x.ontimeout = function(){ fin(0, null); };
+    x.send();
+  }
+
+  function loadStatic(k){
+    var res = {};
+    function step(){
+      if(!('orders' in res) || !('hide' in res)) return;
+      if(res.orders && res.hide){
+        var x = {};
+        (res.hide.x || []).forEach(function(id){ x[String(id)] = 1; });
+        renderList(res.orders.orders.filter(function(r){ return !x[String(r.id)]; }));
+      } else {
+        // 내보내기 전에 보낸 링크거나 파일을 못 받았다 — 웹앱으로 한 번 더 시도한다
+        loadJsonp('k', k);
+      }
+    }
+    getJson(DATA_BASE + 'orders.json', function(s, d){
+      res.orders = (s === 200 && d && d.orders) ? d : null; step();
+    });
+    getJson(DATA_BASE + k + '.json', function(s, d){
+      res.hide = (s === 200 && d) ? d : null; step();
+    });
+  }
+
+  function loadJsonp(param, value){
+    // JSONP 는 응답이 JS 가 아니면 __cb 도 onerror 도 불리지 않는다.
+    // (GAS 배포 권한 문제로 로그인 HTML 이 돌아오는 경우가 그렇다.)
+    // 그대로 두면 "불러오는 중" 에서 영영 멈추므로 시간으로 끊는다.
+    var done = false;
+    window.__cb = function(res){
+      done = true;
+      if(res && res.ok){ renderList(res.orders); }
+      else { renderList([]); }
+    };
+    setTimeout(function(){ if(!done) showError(); }, 12000);
+
+    var s = document.createElement('script');
+    s.src = EXEC_URL + '?' + param + '=' + encodeURIComponent(value) +
+            '&type=' + encodeURIComponent(TYPE) + '&callback=__cb';
+    s.onerror = showError;
+    document.body.appendChild(s);
+  }
+
+  // k 추출. 문자 앱이 '?' 뒤를 잘라내는 경우에 대비해 해시(#{k})도 받는다.
+  function getKey(){
+    var m = location.search.match(/[?&]k=([0-9a-f]{16})/) ||
+            location.hash.match(/^#([0-9a-f]{16})$/);
+    return m ? m[1] : '';
+  }
+
+  // 옛 링크의 pid. URLSearchParams 는 구형 안드로이드 웹뷰에 없어 정규식으로 읽는다.
   // 문자 앱이 자동 링크를 만들 때 '?' 뒤를 잘라내는 경우가 있어 해시(#15200)도 받는다.
   function getPid(){
     var m = location.search.match(/[?&]pid=([^&]*)/) || location.hash.match(/^#(\d+)/);
@@ -306,26 +372,16 @@
 
   function load(){
     renderHead();
+    var k = getKey();
+    if(k){ loadStatic(k); return; }
+
     var pid = getPid();
     if(!pid){ document.getElementById('list').innerHTML =
       '<div class="state">주문 정보를 불러올 수 없어요.<br>' +
       '문자로 받으신 링크를 다시 눌러주세요.<br><br>' +
       '<a href="https://miso-586.github.io/oneoff/orders/" ' +
       'style="color:#1f5c99;font-weight:600">전체 주문 보기</a></div>'; return; }
-
-    // JSONP 는 응답이 JS 가 아니면 __cb 도 onerror 도 불리지 않는다.
-    // (GAS 배포 권한 문제로 로그인 HTML 이 돌아오는 경우가 그렇다.)
-    // 그대로 두면 "불러오는 중" 에서 영영 멈추므로 시간으로 끊는다.
-    var done = false;
-    var orig = window.__cb;
-    window.__cb = function(res){ done = true; orig(res); };
-    setTimeout(function(){ if(!done) showError(); }, 12000);
-
-    var s = document.createElement('script');
-    s.src = EXEC_URL + '?pid=' + encodeURIComponent(pid) +
-            '&type=' + encodeURIComponent(TYPE) + '&callback=__cb';
-    s.onerror = showError;
-    document.body.appendChild(s);
+    loadJsonp('pid', pid);
   }
 
   load();
